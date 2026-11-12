@@ -1,0 +1,111 @@
+:root {
+  --ink: #1d2340;
+  --sky: #e3eaff;
+  --paper: #ffffff;
+  --mint: #3fc79a;
+  --sun: #ffc83d;
+  --berry: #e5487a;
+  --muted: #5b6288;
+  --body: #8fb4ff;
+  --body-dark: #6a93f0;
+  --radius: 22px;
+}
+* { box-sizing: border-box; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--sky);
+  color: var(--ink);
+  font-family: "Nunito", system-ui, sans-serif;
+  line-height: 1.5;
+}
+h1, h2 { font-family: "Fredoka", system-ui, sans-serif; margin: 0; }
+
+.top {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  align-items: center; justify-content: space-between;
+  max-width: 560px; margin: 0 auto; padding: 20px 16px 8px;
+}
+.top h1 { font-size: 1.5rem; }
+select, input {
+  font: inherit; color: var(--ink);
+  padding: 10px 12px; border-radius: 14px;
+  border: 2px solid transparent; background: var(--paper);
+}
+select:focus-visible, input:focus-visible, .btn:focus-visible {
+  outline: 3px solid var(--ink); outline-offset: 2px;
+}
+
+main { max-width: 560px; margin: 0 auto; padding: 8px 16px 40px; display: grid; gap: 16px; }
+.panel { background: var(--paper); border-radius: var(--radius); padding: 24px; }
+
+/* ---- the pet ---- */
+.pet { width: min(260px, 70%); margin: 0 auto 8px; transition: filter .4s; }
+.pet svg { width: 100%; display: block; overflow: visible; }
+.pet .body { fill: var(--body); transition: fill .4s; }
+.pet .ear { fill: var(--body-dark); transition: fill .4s; }
+.pet .shadow { fill: rgba(29, 35, 64, .12); }
+.pet .cheek { fill: #ff9db8; opacity: .7; }
+.pet #mouth { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+.pet #mouth.open { fill: var(--ink); }
+.pet.happy { animation: bounce 1.4s ease-in-out infinite; }
+.pet.hungry .body { fill: #f2b66b; } .pet.hungry .ear { fill: #de9a45; }
+.pet.unhappy .body { fill: #9aa5c9; } .pet.unhappy .ear { fill: #818db5; }
+.pet.critical .body { fill: #d9899f; } .pet.critical .ear { fill: #c46d86; }
+.pet.critical { animation: shake .5s ease-in-out infinite; }
+@keyframes bounce { 50% { transform: translateY(-8px); } }
+@keyframes shake { 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+
+.identity { display: flex; gap: 12px; align-items: center; justify-content: center; }
+.identity h2 { font-size: 1.9rem; }
+.pill {
+  padding: 4px 14px; border-radius: 999px; font-weight: 700; font-size: .9rem;
+  background: var(--sky);
+}
+.pill.Happy { background: #c9f3e4; } .pill.Normal { background: var(--sky); }
+.pill.Hungry { background: #ffe2b5; } .pill.Unhappy { background: #dde1ee; }
+.pill.Critical { background: #ffc9d9; color: #8a1238; }
+.event { text-align: center; color: var(--muted); margin: 4px 0 20px; min-height: 1.5em; }
+
+.meters { display: grid; gap: 14px; margin-bottom: 22px; }
+.meter-head { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 4px; }
+.bar { height: 14px; background: var(--sky); border-radius: 999px; overflow: hidden; }
+.fill { height: 100%; border-radius: 999px; transition: width .5s ease; }
+.fill.hunger { background: var(--sun); }
+.fill.happy { background: var(--mint); }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; }
+.btn {
+  font: inherit; font-weight: 700; cursor: pointer;
+  padding: 14px 18px; border-radius: 16px; border: 2px solid var(--ink);
+  background: var(--paper); color: var(--ink);
+  transition: transform .1s;
+}
+.btn:active { transform: scale(.96); }
+.btn.primary { background: var(--sun); }
+.btn.primary.alt { background: var(--mint); }
+.btn.ghost { background: transparent; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.new label { font-weight: 700; display: block; margin-bottom: 6px; }
+.row { display: flex; gap: 10px; }
+.row input { flex: 1; border-color: var(--sky); min-width: 0; }
+
+#welcome h2 { margin-bottom: 6px; }
+#welcome p { margin: 0; color: var(--muted); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 20px; transform: translate(-50%, 80px);
+  background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px;
+  margin: 0; transition: transform .25s; max-width: 90vw;
+}
+.toast.show { transform: translate(-50%, 0); }
+.toast.error { background: #a0183f; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pet.happy, .pet.critical { animation: none; }
+  .fill, .toast, .btn { transition: none; }
+}
