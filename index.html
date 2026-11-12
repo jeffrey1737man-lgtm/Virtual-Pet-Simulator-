@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Virtual Pet Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="top">
+    <h1>Virtual Pet Simulator</h1>
+    <div class="switcher">
+      <label for="pet-select" class="sr-only">Choose a pet</label>
+      <select id="pet-select"></select>
+    </div>
+  </header>
+
+  <main>
+    <!-- Shown when there is no pet yet -->
+    <section id="welcome" class="panel" hidden>
+      <h2>Adopt your first pet</h2>
+      <p>Pick a name. Feed and play with it to keep it happy.</p>
+    </section>
+
+    <section id="stage" class="panel" hidden>
+      <div id="pet-wrap" class="pet normal">
+        <svg id="pet-svg" viewBox="0 0 200 200" role="img" aria-label="Your pet">
+          <ellipse cx="100" cy="184" rx="56" ry="8" class="shadow"/>
+          <path class="ear" d="M58 52 L54 14 L90 38 Z"/>
+          <path class="ear" d="M142 52 L146 14 L110 38 Z"/>
+          <path class="body" d="M36 122 C36 62 66 30 100 30 C134 30 164 62 164 122 C164 160 138 180 100 180 C62 180 36 160 36 122 Z"/>
+          <ellipse class="cheek" cx="60" cy="126" rx="10" ry="6"/>
+          <ellipse class="cheek" cx="140" cy="126" rx="10" ry="6"/>
+          <g id="eyes"></g>
+          <path id="mouth" d=""/>
+        </svg>
+      </div>
+
+      <div class="identity">
+        <h2 id="pet-name"></h2>
+        <span id="pet-condition" class="pill"></span>
+      </div>
+      <p id="pet-event" class="event" aria-live="polite"></p>
+
+      <div class="meters">
+        <div class="meter">
+          <div class="meter-head"><span>Hunger</span><strong id="hunger-val">0</strong></div>
+          <div class="bar"><div id="hunger-bar" class="fill hunger"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-head"><span>Happiness</span><strong id="happiness-val">0</strong></div>
+          <div class="bar"><div id="happiness-bar" class="fill happy"></div></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btn-feed" class="btn primary">Feed</button>
+        <button id="btn-play" class="btn primary alt">Play</button>
+        <button id="btn-save" class="btn ghost">Save</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <form id="new-form" class="new">
+        <label for="new-name">New pet name</label>
+        <div class="row">
+          <input id="new-name" maxlength="24" autocomplete="off" placeholder="e.g. Mochi">
+          <button class="btn ghost" type="submit">Adopt</button>
+        </div>
+      </form>
+    </section>
+
+    <p id="toast" class="toast" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
